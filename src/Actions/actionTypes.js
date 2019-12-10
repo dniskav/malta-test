@@ -1,2 +1,4 @@
+export const OPEN_GAME = 'OPEN_GAME';
+export const CLOSE_GAME = 'CLOSE_GAME';
 export const GET_GAMES_LIST = 'GET_GAMES_LIST';
 export const GET_FILTERED_GAMES_LIST = 'GET_FILTERED_GAMES_LIST';
