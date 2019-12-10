@@ -1,0 +1,17 @@
+import React from "react";
+import { render } from "react-dom";
+import "antd/dist/antd.css";
+import { Provider } from "react-redux";
+import configureStore from "./store/configureStore";
+import { initialState } from "./reducers/initialState";
+
+import App from "./components/App";
+
+const store = configureStore(initialState);
+
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById("app"),
+);
