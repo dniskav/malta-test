@@ -1,16 +1,22 @@
-import React from 'react';
-import { Layout, Search } from 'antd';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Layout, Input } from 'antd';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Input } from 'antd';
 
 import GameTile from '../GameTile';
+import { fetchGamesList, getFilteredGamesList } from '../../Actions/games';
 
 const SearchBox = () => {
     const { Search } = Input;
+    const dispatch = useDispatch();
 
     return (
-        <Search placeholder="Search" onSearch={data => console.log(data)}/>
+        <Search
+            placeholder="Search"
+            onChange={event => dispatch(getFilteredGamesList(event.target.value))}
+            onSearch={data => dispatch(getFilteredGamesList(data))}
+        />
     );
 }
 
@@ -30,7 +36,13 @@ const Title = styled.h1`
 
 const GameGrid = ({ list }) => {
     const { Header, Footer, Content } = Layout;
+    const gamesList = useSelector( state => state.gamesList);
+    const filteredGamesList = useSelector( state => state.filteredGamesList);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(fetchGamesList());
+    }, [])
     return (
         <>
             <Layout>
@@ -40,7 +52,12 @@ const GameGrid = ({ list }) => {
                 <SearchBox />
                 <Content>
                     <Grid>
-                        {list ? list.map( game => <GameTile game={game} key={game.extearnal_game_id} />) : ''}
+                        {
+                            filteredGamesList.length ?
+                                filteredGamesList.map( game => <GameTile game={game} key={game.extearnal_game_id} />) 
+                                :
+                                gamesList.map( game => <GameTile game={game} key={game.extearnal_game_id} />) 
+                        }
                     </Grid>
                 </Content>
                 <Footer>

@@ -24,7 +24,7 @@ app.get('/list', (req, res, next) => {
 });
 
 server.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`);
+    console.log(`App listening on port ${port}!`);
 });
 
 //Run app, then load http://localhost:port in a browser to see the output.
